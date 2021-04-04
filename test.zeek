@@ -1,5 +1,5 @@
 global relationship:table[addr] of set[string]=table();
-event user_agent(c:connection)
+event http_header(c: connection, is_orig: bool, name: string, value: string)
 {
   local sip:addr=c$id$orig_h;
   if(c$http?$user_agent)
@@ -12,8 +12,7 @@ event user_agent(c:connection)
 	 }
 	else
 	{
-    	local myset:set[string]={agent};
-    	relationship[sip]=myset;
+    		relationship[sip]=set(agent);
 	}
   }
   
